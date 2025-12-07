@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: agentic-rag-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - HF_TOKEN=${HF_TOKEN:-}
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./data:/app/data
+      - ./models:/app/models
+    env_file:
+      - .env
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    image: python:3.10-slim
+    container_name: agentic-rag-frontend
+    ports:
+      - "8501:8501"
+    working_dir: /app/frontend
+    volumes:
+      - ./frontend:/app/frontend
+      - ./backend:/app/backend:ro
+    environment:
+      - PYTHONPATH=/app/backend
+    depends_on:
+      - backend
+    command: >
+      sh -c "pip install streamlit requests &&
+             streamlit run app.py --server.port 8501 --server.address 0.0.0.0"
+    restart: unless-stopped
