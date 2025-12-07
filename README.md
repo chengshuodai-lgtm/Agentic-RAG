@@ -1,6 +1,6 @@
 # Agentic-RAG-System (FastAPI + Streamlit + Chroma + LangChain)
 
-一个用于展示**端到端 LLM 应用开发能力**的 Agentic RAG 全栈项目（本地跑通优先，后续可扩展部署）。  
+Agentic RAG 全栈项目
 核心链路：**PDF 入库 → 分块 → Embedding → Chroma 向量库 → 混合检索（关键词+向量）→ Rerank → Agent（重写/是否检索/多轮检索反思）→ SSE 流式输出 → Streamlit 逐字显示**
 
 ---
@@ -29,8 +29,8 @@
 ## 🧱 Tech Stack
 
 - **Backend**: FastAPI
-- **Frontend**: Streamlit（后续可替换 React / Next.js）
-- **Vector DB**: ChromaDB（后续可替换 Qdrant / Pinecone）
+- **Frontend**: Streamlit（后续替换 React / Next.js）
+- **Vector DB**: ChromaDB（后续替换 Qdrant / Pinecone）
 - **PDF Loader**: `UnstructuredPDFLoader`（unstructured[pdf]）
 - **Embedding**: HuggingFace **BGE embedding**（如 `BAAI/bge-m3`）
 - **Reranker**: HuggingFace **BGE reranker**（如 `BAAI/bge-reranker-base`）
